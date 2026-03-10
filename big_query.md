@@ -28,7 +28,7 @@ gcloud auth application-default login
 In Cloud Shell run:
 
 ```bash
-git clone https://github.com/mcCloudGlobal/hybrid-search-guide
+gh repo clone mcCloudGlobal/hybrid-search-guide
 
 cd hybrid-search-guide
 
