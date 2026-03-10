@@ -20,7 +20,7 @@ If re-/authentication is required at any time follow with these commands:
 ```bash
 gcloud config set project YOUR_PROJECT
 
-gcloud auth application-default login
+gcloud auth login
 ```
 
 ## 2. Create BQ dataset and import data
