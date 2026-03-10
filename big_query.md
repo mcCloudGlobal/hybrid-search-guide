@@ -2,7 +2,7 @@
 
 To start this tutorial you need a Google Cloud project with billing enabled. Navigate to [Big Query Studio](https://console.cloud.google.com/bigquery) and make sure your project is selected in project selector in top leftcorner of the console.
 
-## 0. Enable APIs
+## 1. Enable APIs
 
 Open Cloud Shell by naviagting to [this URL](https://shell.cloud.google.com/) or by clicking `Activate Cloud Shell` icon in the top right corner of Cloud Console and follow with commands:
 
@@ -23,7 +23,7 @@ gcloud config set project YOUR_PROJECT
 gcloud auth application-default login
 ```
 
-## 1. Create BQ dataset and import data
+## 2. Create BQ dataset and import data
 
 In Cloud Shell run:
 
@@ -38,23 +38,6 @@ bq mk --location=$GCP_LOCATION --dataset $GOOGLE_CLOUD_PROJECT:demo_shop_1
 
 bq load --source_format=NEWLINE_DELIMITED_JSON --autodetect $GOOGLE_CLOUD_PROJECT:demo_shop_1.products ./products.jsonl
 ```
-
-## 2. Create BQ connection to Vertex AI
-
-Read full reference [here](https://docs.cloud.google.com/bigquery/docs/generate-text-embedding#bq_1).
-
-```bash
-bq mk --connection --location=$GCP_LOCATION --project_id=$GOOGLE_CLOUD_PROJECT --connection_type=CLOUD_RESOURCE vertex_ai
-
-bq show --connection $GCP_LOCATION.vertex_ai
-```
-Copy `bqcx-XXX@gcp-sa-bigquery-condel.iam.gserviceaccount.com` value from command output above and use it as `MEMBER` in last argument of command below to assign Vertex AI User role:
-
-```bash
-gcloud projects add-iam-policy-binding $GOOGLE_CLOUD_PROJECT --role='roles/aiplatform.user' --member='serviceAccount:MEMBER'
-```
-
-Wait at least one minute for IAM to propagate before you create model endpoint.
 
 ## 3. Create model endpoint
 
